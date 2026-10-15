@@ -1,35 +1,54 @@
 cff-version: 1.2.0
 message: If you use this software, please cite it as below.
+type: software
+title: Beyond the Streetlight
+abstract: >-
+  Materials for Christopher Carroll's discussion of Corrado, Kennickell and
+  Cajner, "Beyond the Streetlight: Economic Measurement in the Division of
+  Research and Statistics at the Federal Reserve", at the Federal Reserve's
+  R&S Centennial Conference (November 2023). The code analyzes the trend in the errors of the
+  Tealbook/Greenbook (GB) and Survey of Professional Forecasters (SPF)
+  forecasts of the unemployment rate and of real growth in personal
+  consumption expenditures from 1982 to 2017.
 authors:
   - family-names: Edwards
     given-names: Decory
-    #orcid: "https://orcid.org/XXXX-XXXX-XXXX-XXXX"
+    affiliation: Johns Hopkins University
   - family-names: Carroll
-    given-names: Christopher
-    orcid: https://orcid.org/0000-0003-3732-9312
-title: Beyond the streetlight
-abstract: This repository provides an analysis of the trend in forecast errors made by the Tealbook/Greenbook(GB) and the Survey of Professional Forecasters(SPF) for measures of the unemployment rate and real growth in personal consumption expenditures from 1982 to 2017.
-version: 1.0.4
-date-released: 2023-11-06
-references:
-  - type: article
-    authors:
-      - family-names: "Corrado"
-        given-names: "Carol"
-        #orcid: "https://orcid.org/XXXX-XXXX-XXXX-XXXX"
-      - family-names: "Kennickell"
-        given-names: "Arthur"
-        #orcid: "https://orcid.org/XXXX-XXXX-XXXX-XXXX"
-    title: "100 years of Economic Measurement in the Division of Research & Statistics: Beyond the streetlight"
-    date: 2023-10-24 # required
-    publisher: "R&S Centennial Conference"
-repository-code: https://github.com/dedwar65/beyond-the-streetlight # required
-
-tags:
-  - REMARK
-  - Notebook
-
+    given-names: Christopher D.
+    orcid: "https://orcid.org/0000-0003-3732-9312"
+    affiliation: Johns Hopkins University
+version: 1.1.3
+date-released: "2026-10-14"
+doi: 10.5281/zenodo.23352415
+license: Apache-2.0
+repository-code: "https://github.com/econ-ark/beyond-the-streetlight"
+url: "https://econ-ark.github.io/beyond-the-streetlight/"
 keywords:
   - Econ-ARK
+  - REMARK
   - Greenbook
+  - Survey of Professional Forecasters
   - Forecast errors
+  - Economic measurement
+references:
+  - type: report
+    authors:
+      - family-names: Corrado
+        given-names: Carol
+      - family-names: Kennickell
+        given-names: Arthur
+      - family-names: Cajner
+        given-names: Tomaz
+    title: "Beyond the Streetlight: Economic Measurement in the Division of Research and Statistics at the Federal Reserve"
+    collection-title: Finance and Economics Discussion Series
+    number: "2025-019"
+    institution:
+      name: Board of Governors of the Federal Reserve System
+    year: 2025
+    month: 3
+    doi: 10.17016/FEDS.2025.019
+    url: "https://doi.org/10.17016/FEDS.2025.019"
+    notes: >-
+      Prepared for the R&S Centennial Conference, November 8, 2023, where
+      Christopher Carroll was a discussant.

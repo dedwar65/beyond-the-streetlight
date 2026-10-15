@@ -1,0 +1,21 @@
+# Version control, CI and editor configuration
+.git
+.github
+.devcontainer
+.vscode/
+.idea/
+
+# Local environments and caches (the image builds its own from uv.lock)
+.venv/
+__pycache__/
+*.py[cod]
+
+# Not needed to reproduce the results
+plans_local/
+references/
+about/
+*.pdf
+*.docx
+
+# macOS
+.DS_Store

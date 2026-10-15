@@ -1,0 +1,74 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  reproduce:
+    name: reproduce.sh (uv)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.2.0  # publishes no floating major tag
+        with:
+          version: "0.12.21"
+      # Fails unless every output reproduces the committed version
+      - run: ./reproduce.sh
+
+  container:
+    name: Docker image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - run: docker build -t remark .
+      - run: docker run --rm remark ./reproduce_min.sh
+
+  conda:
+    name: binder/environment.yml
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -el {0}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: conda-incubator/setup-miniconda@v4
+        with:
+          environment-file: binder/environment.yml
+          activate-environment: beyond-the-streetlight
+      - run: ./reproduce_min.sh
+
+  remark-lint:
+    name: REMARK lint (Tier 3)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          path: remark
+      - uses: actions/checkout@v7
+        with:
+          repository: econ-ark/REMARK
+          ref: main
+          path: REMARK
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Lint this checkout against the current STANDARD
+        working-directory: REMARK
+        run: |
+          # cli.py needs only PyYAML; REMARK's requirements.txt pins 6.0.0,
+          # which has no wheel for Python 3.12 and fails to build
+          pip install pyyaml
+          printf 'name: beyond-the-streetlight\nremote: https://github.com/econ-ark/beyond-the-streetlight\ntitle: Beyond the Streetlight\n' \
+            > REMARKs/beyond-the-streetlight.yml
+          # cli.py lints whatever sits at _REMARK/repos/<name>
+          mkdir -p _REMARK/repos
+          ln -sfn "$GITHUB_WORKSPACE/remark" _REMARK/repos/beyond-the-streetlight
+          python cli.py lint REMARKs/beyond-the-streetlight.yml --tier 3 --include-optional | tee lint.txt
+          # lint always exits 0; missing required files are listed under "Errors:"
+          ! grep -q 'Errors:' lint.txt
